@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Distrix Push Demo</title>
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    </head>
+    
+    <body>
+        <script>
+            function get_notifications()
+            {
+                $.ajax({
+                   url: "/get_notification",
+                   cache: false,
+                   success: function(html){
+                       $("#response_area").html(html);
+                       get_notifications();
+                   } 
+                });
+            }
+        
+            $(document).ready(function(){
+                $("#start").click(function() {
+                    $("#message_area").html("Listening for notifications...");
+                    get_notifications();
+                });
+            });
+        </script>
+        <h1>Distrix Push Demo</h1>
+        
+        <input type="submit" name="start" value="Start listening..." id="start" />
+        <div id="message_area" style="padding-top: 10px;"></div>
+        <div id="response_area" style="padding-top: 10px;"></div>
+    </body>
+
+</html>
